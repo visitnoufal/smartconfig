@@ -51,7 +51,10 @@ public class UDPSocketServer {
 		this.buffer = new byte[64];
 		this.mReceivePacket = new DatagramPacket(buffer, 64);
 		try {
-			this.mServerSocket = new DatagramSocket(port);
+			//this.mServerSocket = new DatagramSocket(port);
+			this.mServerSocket = new DatagramSocket(null);
+			this.mServerSocket.setReuseAddress(true);
+			this.mServerSocket.bind(new InetSocketAddress(port));
 			this.mServerSocket.setSoTimeout(socketTimeout);
 			this.mIsClosed = false;
 			WifiManager manager = (WifiManager) mContext
